@@ -1,0 +1,77 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Keep publishing simple: every Publish action writes directly to the main branch.
+publish_mode: simple
+
+# Store uploaded media in the same repository as the page.
+media_folder: "media"
+public_folder: "/media"
+
+# Every uploaded photo/video is committed into the same public media directory.
+
+collections:
+  - name: "content"
+    label: "Birthday Page"
+    files:
+      - file: "content.json"
+        label: "Page Content"
+        name: "content"
+        fields:
+          - label: "Hero"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "Her name", name: "title", widget: "string" }
+              - { label: "Nickname", name: "nickname", widget: "string" }
+              - { label: "From line", name: "fromLine", widget: "string" }
+
+          - label: "Together since (date)"
+            name: "sinceDate"
+            widget: "datetime"
+            date_format: "YYYY-MM-DD"
+            time_format: false
+            picker_utc: true
+
+          - label: "Dates"
+            name: "dates"
+            widget: "list"
+            summary: "{{fields.label}} — {{fields.title}}"
+            fields:
+              - { label: "Label (e.g. THE FIRST DATE)", name: "label", widget: "string" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Caption", name: "caption", widget: "text" }
+              - { label: "Video (leave empty if using photos)", name: "video", widget: "file", required: false }
+              - label: "Photos (used only if no video)"
+                name: "images"
+                widget: "list"
+                required: false
+                field: { label: "Photo", name: "image", widget: "image" }
+
+          - label: "Bonus clip"
+            name: "bonus"
+            widget: "object"
+            fields:
+              - { label: "Label", name: "label", widget: "string" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Caption", name: "caption", widget: "text" }
+              - { label: "Video", name: "video", widget: "file" }
+
+          - label: "Reasons (corkboard notes)"
+            name: "traits"
+            widget: "list"
+            summary: "{{fields.text}}"
+            fields:
+              - { label: "Trait", name: "text", widget: "string" }
+              - { label: "Small note", name: "note", widget: "string" }
+
+          - label: "Closing"
+            name: "closing"
+            widget: "object"
+            fields:
+              - { label: "Heading", name: "heading", widget: "string" }
+              - { label: "Message", name: "message", widget: "text" }
+              - { label: "Signature name", name: "signature", widget: "string" }
+
+          - { label: "Birthday wish note", name: "wishNote", widget: "text" }

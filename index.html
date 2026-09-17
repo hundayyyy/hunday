@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday, Betemaryam</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Karla:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --plum-950:#1c1122;
+    --plum-900:#2a1830;
+    --plum-800:#3a2140;
+    --paper:#f6ecdd;
+    --ink:#3a2532;
+    --ink-soft:#6b5468;
+    --rose:#e6919f;
+    --rose-deep:#c96a7c;
+    --gold-soft:#efd08a;
+    --shadow-soft: 0 18px 40px rgba(28,17,34,0.35);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--plum-950);
+    color:var(--paper);
+    font-family:'Karla', sans-serif;
+    overflow-x:hidden;
+  }
+  ::selection{ background:var(--rose-deep); color:var(--paper); }
+  h1,h2,h3{ font-family:'Fraunces', serif; font-weight:500; margin:0; letter-spacing:-0.01em; }
+  .wrap{ max-width:880px; margin:0 auto; padding:0 24px; }
+
+  .hero{
+    min-height:100svh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; position:relative; padding:40px 24px;
+    background: radial-gradient(ellipse at 50% 0%, rgba(230,145,159,0.12), transparent 60%),
+                radial-gradient(ellipse at 20% 90%, rgba(215,169,74,0.10), transparent 55%),
+                var(--plum-950);
+  }
+  .stars{ position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+  .stars span{ position:absolute; width:3px; height:3px; border-radius:50%; background:var(--gold-soft); opacity:0.55; animation: twinkle 3.4s ease-in-out infinite; }
+  @keyframes twinkle{ 0%,100%{opacity:.15;} 50%{opacity:.7;} }
+
+  .envelope-stage{ position:relative; width:min(320px, 78vw); aspect-ratio: 4/2.7; cursor:pointer; -webkit-tap-highlight-color:transparent; filter:drop-shadow(0 20px 30px rgba(0,0,0,0.4)); }
+  .env-body{ position:absolute; inset:0; background: linear-gradient(180deg, #efe2c8, #e5d3ae); border-radius:6px; }
+  .env-flap{ position:absolute; top:0; left:0; right:0; height:58%; background: linear-gradient(160deg, #e9dcc0, #dcc79b); clip-path: polygon(0 0, 100% 0, 50% 82%); transform-origin: top center; transition: transform 0.7s cubic-bezier(.6,-0.28,.35,1.2); border-radius:6px 6px 0 0; }
+  .envelope-stage.open .env-flap{ transform: rotateX(178deg); }
+  .seal{ position:absolute; top:44%; left:50%; transform:translate(-50%,-50%); width:52px; height:52px; border-radius:50%; background: radial-gradient(circle at 35% 30%, var(--rose), var(--rose-deep)); display:flex; align-items:center; justify-content:center; font-family:'Fraunces', serif; font-style:italic; font-size:22px; color:var(--paper); box-shadow: 0 4px 10px rgba(0,0,0,0.35); transition: opacity 0.3s ease 0.15s, transform 0.3s ease 0.15s; z-index:3; }
+  .envelope-stage.open .seal{ opacity:0; transform:translate(-50%,-50%) scale(0.4); }
+  .env-note{ position:absolute; left:8%; right:8%; bottom:6%; top:20%; background:var(--paper); border-radius:4px; transform: translateY(6%); transition: transform 0.6s cubic-bezier(.2,.8,.2,1) 0.25s; z-index:2; display:flex; align-items:center; justify-content:center; padding:12px; }
+  .envelope-stage.open .env-note{ transform: translateY(-46%); }
+  .env-note span{ font-family:'Fraunces', serif; font-style:italic; color:var(--ink-soft); font-size:14px; }
+  .hero-hint{ margin-top:28px; color:var(--gold-soft); font-size:14px; letter-spacing:0.03em; opacity:0.85; }
+  .envelope-stage.open ~ .hero-hint{ opacity:0; }
+  .hero-reveal{ margin-top:14px; opacity:0; transform:translateY(14px); transition: opacity 0.8s ease, transform 0.8s ease; pointer-events:none; }
+  .hero-reveal.show{ opacity:1; transform:translateY(0); pointer-events:auto; }
+  .hero-reveal .kicker{ font-size:13px; color:var(--rose); letter-spacing:0.04em; margin-bottom:10px; }
+  .hero-reveal h1{ font-size:clamp(2.4rem, 8vw, 4.4rem); font-style:italic; color:var(--paper); line-height:1.05; }
+  .hero-reveal .nickname{ color:var(--gold-soft); }
+  .hero-reveal .from{ margin-top:18px; font-size:15px; color:#c9b6c4; }
+  .scroll-cue{ margin-top:34px; font-size:12px; color:#a893a4; opacity:0; transition:opacity 0.8s ease 0.4s; }
+  .scroll-cue.show{ opacity:0.8; }
+
+  section{ padding:100px 0; position:relative; }
+  .section-head{ text-align:center; margin-bottom:56px; }
+  .section-head .kicker{ color:var(--rose); font-size:13px; letter-spacing:0.04em; margin-bottom:8px; }
+  .section-head h2{ font-size:clamp(1.8rem, 5vw, 2.6rem); font-style:italic; color:var(--paper); }
+
+  .story{ background:var(--plum-950); }
+  .entry{ display:grid; grid-template-columns: 1fr 1fr; gap:36px; align-items:center; margin-bottom:80px; opacity:0; transform:translateY(18px); transition:opacity 0.7s ease, transform 0.7s ease; }
+  .entry.in{ opacity:1; transform:translateY(0); }
+  .entry:nth-child(even){ direction:rtl; }
+  .entry:nth-child(even) > *{ direction:ltr; }
+  .entry-media{ position:relative; border-radius:10px; overflow:hidden; aspect-ratio: 4/3; background: linear-gradient(150deg, var(--plum-800), var(--plum-900)); border:1px solid rgba(230,145,159,0.18); box-shadow:var(--shadow-soft); }
+  .entry-media video, .entry-media img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .media-error{position:absolute;inset:auto 8px 8px 8px;padding:8px 10px;border-radius:8px;background:rgba(0,0,0,.72);color:#fff;font-size:12px;text-align:center;}
+  .photo-grid{ display:grid; grid-template-columns:1fr 1fr; gap:6px; background:none; border:none; box-shadow:none; aspect-ratio:auto; }
+  .photo-grid img{ width:100%; height:100%; object-fit:cover; border-radius:8px; aspect-ratio:1/1; }
+  .entry-text .label{ font-size:12px; letter-spacing:0.04em; color:var(--gold-soft); margin-bottom:10px; }
+  .entry-text h3{ font-size:clamp(1.4rem, 4vw, 1.9rem); font-style:italic; color:var(--paper); margin-bottom:12px; }
+  .entry-text p{ color:#c9b6c4; line-height:1.7; font-size:15px; }
+  .entry-text p.editable{ border-left:2px solid rgba(230,145,159,0.4); padding-left:12px; font-style:italic; }
+  .bonus-entry{ margin-bottom:0; }
+  @media (max-width:720px){ .entry, .entry:nth-child(even){ grid-template-columns:1fr; direction:ltr; } }
+
+  .traits{ background: var(--plum-900); }
+  .cork{ display:flex; flex-wrap:wrap; justify-content:center; gap:28px; }
+  .note{ background:var(--paper); color:var(--ink); width:190px; padding:26px 20px 22px; border-radius:2px; box-shadow:var(--shadow-soft); font-family:'Fraunces', serif; font-style:italic; font-size:19px; text-align:center; position:relative; }
+  .note:nth-child(1){ transform:rotate(-4deg); }
+  .note:nth-child(2){ transform:rotate(2.5deg); margin-top:18px; }
+  .note:nth-child(3){ transform:rotate(-2deg); }
+  .note .pin{ position:absolute; top:-10px; left:50%; transform:translateX(-50%); width:16px; height:16px; border-radius:50%; background: radial-gradient(circle at 35% 30%, var(--rose), var(--rose-deep)); box-shadow:0 3px 5px rgba(0,0,0,0.35); }
+  .note small{ display:block; margin-top:8px; font-family:'Karla',sans-serif; font-style:normal; font-size:11px; color:var(--ink-soft); letter-spacing:0.03em; }
+
+  .since{ text-align:center; background: var(--plum-950); }
+  .since .counter{ font-family:'Fraunces', serif; font-size:clamp(3rem, 12vw, 5.5rem); font-style:italic; color:var(--gold-soft); line-height:1; }
+  .since p{ color:#c9b6c4; margin-top:14px; font-size:15px; }
+
+  .wish{ background: var(--plum-900); text-align:center; }
+  .cake-wrap{ display:flex; justify-content:center; margin-bottom:8px; }
+  .cake{ width:170px; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+  .flame{ transform-origin:center bottom; animation: flicker 1.6s ease-in-out infinite; }
+  @keyframes flicker{ 0%,100%{ transform:scaleY(1) translateX(0); } 50%{ transform:scaleY(1.12) translateX(0.6px); } }
+  .cake.blown .flame{ opacity:0; animation:none; }
+  .smoke{ opacity:0; transition:opacity 0.6s ease; }
+  .cake.blown .smoke{ opacity:0.55; }
+  .wish-hint{ font-size:13px; color:#a893a4; margin-top:6px; }
+  .wish-note{ max-width:460px; margin:34px auto 0; background:var(--paper); color:var(--ink); border-radius:8px; padding:30px 28px; box-shadow:var(--shadow-soft); opacity:0; transform:translateY(10px) scale(0.98); transition:opacity 0.6s ease, transform 0.6s ease; font-family:'Fraunces', serif; font-style:italic; font-size:17px; line-height:1.7; }
+  .wish-note.show{ opacity:1; transform:translateY(0) scale(1); }
+
+  .closing{ text-align:center; padding-bottom:140px; }
+  .closing h2{ font-size:clamp(1.8rem, 6vw, 2.6rem); font-style:italic; color:var(--paper); margin-bottom:18px; }
+  .closing p{ color:#c9b6c4; max-width:480px; margin:0 auto; line-height:1.8; font-style:italic; }
+  .signature{ margin-top:30px; font-family:'Fraunces', serif; font-style:italic; color:var(--gold-soft); font-size:22px; }
+  .heart-divider{ color:var(--rose); font-size:14px; margin:70px 0 -30px; text-align:center; letter-spacing:10px; }
+
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition-duration:0.01ms !important; } }
+
+  .media-empty{display:flex;align-items:center;justify-content:center;color:#c9b6c4;font-size:13px;}
+  .content-ready #entries .entry{will-change:transform,opacity;}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="stars" id="stars"></div>
+  <div class="envelope-stage" id="envelope">
+    <div class="env-note"><span>tap to open</span></div>
+    <div class="env-body"></div>
+    <div class="env-flap"></div>
+    <div class="seal">B</div>
+  </div>
+  <div class="hero-hint">for my Hun</div>
+  <div class="hero-reveal" id="heroReveal">
+    <div class="kicker">HAPPY BIRTHDAY</div>
+    <h1 id="heroTitle">Betemaryam <br><span class="nickname" id="heroNickname">— my Hun</span></h1>
+    <div class="from" id="heroFrom">a little something from Abel</div>
+  </div>
+  <div class="scroll-cue" id="scrollCue">scroll down ↓</div>
+</section>
+
+<section class="story wrap">
+  <div class="section-head">
+    <div class="kicker">THREE DATES, ONE VERY LUCKY ME</div>
+    <h2>Our story so far</h2>
+  </div>
+  <div id="entries"></div>
+  <div id="bonusEntry"></div>
+</section>
+
+<div class="heart-divider">♥ ♥ ♥</div>
+
+<section class="traits wrap">
+  <div class="section-head">
+    <div class="kicker">THINGS I NOTICED RIGHT AWAY</div>
+    <h2>Just a few reasons</h2>
+  </div>
+  <div class="cork" id="cork"></div>
+</section>
+
+<section class="since wrap">
+  <div class="section-head">
+    <div class="kicker" id="sinceKicker">SINCE JULY 31, 2026</div>
+  </div>
+  <div class="counter" id="dayCounter">0</div>
+  <p>days of being my Hun — and every one of them a good one.</p>
+</section>
+
+<section class="wish wrap">
+  <div class="section-head">
+    <div class="kicker">MAKE A WISH</div>
+    <h2>Go on, blow it out</h2>
+  </div>
+  <div class="cake-wrap">
+    <svg class="cake" id="cake" viewBox="0 0 170 170" xmlns="http://www.w3.org/2000/svg">
+      <g class="smoke"><path d="M85 48 Q80 40 85 34 Q90 28 85 22" stroke="#c9b6c4" stroke-width="2" fill="none" stroke-linecap="round"/></g>
+      <rect x="82" y="38" width="6" height="16" rx="2" fill="#e8dcc9"/>
+      <path class="flame" d="M85 22 C89 28 89 34 85 38 C81 34 81 28 85 22 Z" fill="#e6919f"/>
+      <path class="flame" d="M85 26 C87 30 87 33 85 36 C83 33 83 30 85 26 Z" fill="#d7a94a" opacity="0.9"/>
+      <rect x="30" y="58" width="110" height="34" rx="6" fill="#3a2140"/>
+      <rect x="30" y="58" width="110" height="10" rx="5" fill="#efd08a" opacity="0.5"/>
+      <rect x="20" y="92" width="130" height="46" rx="8" fill="#2a1830"/>
+      <rect x="20" y="92" width="130" height="12" rx="6" fill="#e6919f" opacity="0.35"/>
+      <circle cx="45" cy="110" r="3" fill="#e6919f"/><circle cx="65" cy="118" r="3" fill="#d7a94a"/>
+      <circle cx="90" cy="108" r="3" fill="#efd08a"/><circle cx="115" cy="120" r="3" fill="#e6919f"/>
+      <circle cx="130" cy="105" r="3" fill="#d7a94a"/>
+    </svg>
+  </div>
+  <div class="wish-hint" id="wishHint">click the candle</div>
+  <div class="wish-note" id="wishNote"></div>
+</section>
+
+<section class="closing wrap">
+  <h2 id="closingHeading">Happy birthday, Hun.</h2>
+  <p id="closingMessage" class="editable"></p>
+  <div class="signature" id="closingSignature">— Abel</div>
+</section>
+
+<script>
+(function () {
+  'use strict';
+  const FALLBACK_CONTENT = {"hero": {"title": "Betemaryam", "nickname": "my Hun", "fromLine": "a little something from hubby"}, "sinceDate": "2026-07-31", "dates": [{"label": "THE FIRST DATE", "title": "Where it started", "caption": "We said 9. You came at 10:30 — and I didn't mind waiting a single minute of it, because it was you I was waiting for. ayt mags neber plan yaderekut then slarefedsh in joy burger geban bcha betam des yemil ken nbr kenu le buhe nbr erob ken", "video": "media/date1.mp4", "images": []}, {"label": "THE SECOND DATE", "title": "unexpected", "caption": "Just a walk and the evening light, and somehow it already felt like more than a second date. arb ken nbr out of nowhere nbr engenagn yalkush then piyasa tegenagne des yemil ken nbr addis abeba uat check ladrg bleshi nbr yewetashiw", "video": "media/date2.mp4", "images": []}, {"label": "THE THIRD DATE", "title": "cinema date ngr nbr", "caption": "kebet unity check ladrg blesh nbr yewetashiw and spider man meselgn the moive bcha seatu sanakew nbr yemeshew yesetehush chocolate and rose teftosh cinema wst light abrtesh stfelgi mn yakl value endeseteshiw yeteredahubet moment bcha arif ken nbr", "video": "", "images": []}], "bonus": {"label": "ONE MORE FROM THAT NIGHT", "title": "Still laughing on the way out", "caption": "A little extra clip from the third date, because one mirror wasn't enough. of course ljitua attegebim", "video": "media/date3_bonus.mp4"}, "traits": [{"text": "so supportive❤️", "note": "you are the kinda person who always stands by the people you love. Your support, understanding, and encouragement make everything feel easier and more meaningful."}, {"text": "Beautiful & Kind 🌸", "note": "You’re honestly so beautiful, but it’s your sweet and kind heart that makes you even more special. And those eyes… I could get lost in them forever. I promise to love you gently, protect your heart, and do my best to never be the reason those beautiful eyes are filled with tears. ❤️"}, {"text": "Funny & Joyful 😂", "note": "I love how you can make me smile without even trying."}], "closing": {"heading": "Happy birthday, Hun.", "message": "Happy birthday, my Hun ❤️🥹 Today is all about celebrating you and the beautiful person you are. I’m so grateful for your kind heart, your beautiful smile, your cute sense of humor, and those pretty eyes I could honestly stare at forever. I hope this new year of your life brings you all the happiness, peace, and love you deserve. I promise to always cherish you, support you, and do my best to protect that beautiful heart of yours. Keep smiling, keep being your sweet little self, and never forget how special you are to me. Happy birthday, my love. ❤️🎂🫶", "signature": "Abel, i love you hun"}, "wishNote": "I wish you a year filled with real happiness and endless smiles. ❤️ I wish every dream in your heart slowly becomes your reality. ✨ I wish you peace in your heart and beautiful moments every day. 🥹 I wish you always feel loved, appreciated, and cared for. ❤️ I wish those beautiful eyes of yours are always filled with happiness, never tears. 👀❤️ I wish you success in everything you put your heart into. 🌸 I wish you keep your sweet, kind, and innocent heart forever. 🫶 I wish we create countless beautiful memories together. 🥰 I wish I can be beside you through all the good days and difficult ones. ❤️ I wish I get to love you, make you smile, and celebrate many more birthdays with you."};
+  const $ = id => document.getElementById(id);
+  const text = v => v == null ? '' : String(v);
+  const esc = v => text(v).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+  function mediaUrl(value) {
+    if (!value) return '';
+    const raw = String(value).trim();
+    if (!raw || /^blob:/i.test(raw)) return '';
+    if (/^(https?:|data:)/i.test(raw)) return raw;
+    let clean = raw.replace(/\\/g, '/').replace(/^\.\//, '').replace(/^\//, '');
+    if (clean.startsWith('media/')) return '/' + clean;
+    if (clean.startsWith('uploads/')) return '/media/' + clean.slice(8);
+    return '/media/' + clean;
+  }
+
+  function imagesOf(images) {
+    return (Array.isArray(images) ? images : []).map(item => {
+      if (typeof item === 'string') return mediaUrl(item);
+      if (item && typeof item === 'object') return mediaUrl(item.image || item.url || item.src);
+      return '';
+    }).filter(Boolean);
+  }
+
+  async function loadContent() {
+    const url = new URL('/content.json', window.location.origin);
+    url.searchParams.set('v', Date.now());
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      try {
+        const res = await fetch(url.toString(), {cache:'no-store', credentials:'same-origin', headers:{Accept:'application/json'}});
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.hero && Array.isArray(data.dates)) return data;
+        }
+      } catch (e) { console.warn('content.json load attempt '+attempt+' failed', e); }
+      await new Promise(r => setTimeout(r, 300 * attempt));
+    }
+    console.warn('Using embedded content because /content.json could not be loaded.');
+    return FALLBACK_CONTENT;
+  }
+
+  function mediaHtml(item) {
+    const video = mediaUrl(item.video);
+    const images = imagesOf(item.images);
+    if (video) return `<div class="entry-media"><video controls playsinline preload="metadata" src="${esc(video)}"></video><div class="media-error" hidden>Video could not be loaded.</div></div>`;
+    if (images.length) return `<div class="entry-media photo-grid">${images.map(src => `<img src="${esc(src)}" alt="${esc(item.title)}" loading="lazy"><div class="media-error" hidden>Photo could not be loaded.</div>`).join('')}</div>`;
+    return `<div class="entry-media media-empty"><span>No media added yet.</span></div>`;
+  }
+
+  function bindMediaErrors() {
+    document.querySelectorAll('.entry-media video').forEach(v => v.addEventListener('error', () => {
+      const m=v.parentElement && v.parentElement.querySelector('.media-error'); if(m) m.hidden=false;
+    }, {once:true}));
+    document.querySelectorAll('.entry-media img').forEach(img => img.addEventListener('error', () => {
+      img.style.display='none'; const m=img.parentElement && img.parentElement.querySelector('.media-error'); if(m) m.hidden=false;
+    }, {once:true}));
+  }
+
+  function revealEntries() {
+    const entries=document.querySelectorAll('.entry');
+    if (!('IntersectionObserver' in window)) { entries.forEach(e=>e.classList.add('in')); return; }
+    const io=new IntersectionObserver(list=>list.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}}),{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+    entries.forEach(e=>io.observe(e));
+  }
+
+  function render(data) {
+    const hero=data.hero||{};
+    $('heroTitle').innerHTML=`${esc(hero.title)} <br><span class="nickname">— ${esc(hero.nickname)}</span>`;
+    $('heroFrom').textContent=text(hero.fromLine);
+
+    const entries=$('entries'); entries.innerHTML='';
+    (Array.isArray(data.dates)?data.dates:[]).forEach(d=>{
+      const el=document.createElement('div'); el.className='entry';
+      el.innerHTML=`${mediaHtml(d)}<div class="entry-text"><div class="label">${esc(d.label)}</div><h3>${esc(d.title)}</h3><p class="editable">${esc(d.caption)}</p></div>`;
+      entries.appendChild(el);
+    });
+
+    const bonus=$('bonusEntry'); bonus.innerHTML='';
+    if(data.bonus){ const b=data.bonus; const el=document.createElement('div'); el.className='entry bonus-entry'; el.innerHTML=`${mediaHtml(b)}<div class="entry-text"><div class="label">${esc(b.label)}</div><h3>${esc(b.title)}</h3><p class="editable">${esc(b.caption)}</p></div>`; bonus.appendChild(el); }
+
+    const cork=$('cork'); cork.innerHTML='';
+    (Array.isArray(data.traits)?data.traits:[]).forEach(t=>{const n=document.createElement('div');n.className='note';n.innerHTML=`<div class="pin"></div>${esc(t.text)}<small>${esc(t.note)}</small>`;cork.appendChild(n);});
+
+    const date=text(data.sinceDate).slice(0,10), start=new Date(date+'T00:00:00');
+    if(!Number.isNaN(start.getTime())){$('dayCounter').textContent=Math.max(0,Math.floor((Date.now()-start.getTime())/86400000));$('sinceKicker').textContent='SINCE '+start.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}).toUpperCase();}
+    $('wishNote').textContent=text(data.wishNote);
+    const c=data.closing||{}; $('closingHeading').textContent=text(c.heading); $('closingMessage').textContent=text(c.message); $('closingSignature').textContent='— '+text(c.signature);
+    bindMediaErrors(); revealEntries();
+  }
+
+  async function init(){ render(await loadContent()); }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+
+  const stars=$('stars'); for(let i=0;i<28;i++){const s=document.createElement('span');s.style.left=Math.random()*100+'%';s.style.top=Math.random()*70+'%';s.style.animationDelay=Math.random()*3+'s';stars.appendChild(s);}
+  const envelope=$('envelope'), heroReveal=$('heroReveal'), scrollCue=$('scrollCue');
+  envelope.addEventListener('click',()=>{if(envelope.classList.contains('open'))return;envelope.classList.add('open');setTimeout(()=>{heroReveal.classList.add('show');scrollCue.classList.add('show');},500);});
+  const cake=$('cake'), hint=$('wishHint'), note=$('wishNote');
+  cake.addEventListener('click',()=>{if(cake.classList.contains('blown'))return;cake.classList.add('blown');hint.style.opacity='0';setTimeout(()=>note.classList.add('show'),300);});
+})();
+</script>
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+</script>
+
+</body>
+</html>

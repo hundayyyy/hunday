@@ -1,0 +1,18 @@
+# Netlify configuration for the birthday site
+
+[build]
+  publish = "."
+
+# content.json is the live data source for the public page.
+# Prevent CDN/browser caching from making an admin edit look missing.
+[[headers]]
+  for = "/content.json"
+  [headers.values]
+    Cache-Control = "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0"
+    Pragma = "no-cache"
+
+# The admin app should always load its latest configuration.
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    Cache-Control = "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0"
